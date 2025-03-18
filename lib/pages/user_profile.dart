@@ -20,8 +20,8 @@ class UserProfile extends StatelessWidget {
             // Profile Picture
             CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage(
-                  'assets/profile.jpg'), // Change to user's profile image
+              // backgroundImage: AssetImage(
+              //     'assets/profile.jpg'), // Change to user's profile image
             ),
             const SizedBox(height: 15),
             // User Name
