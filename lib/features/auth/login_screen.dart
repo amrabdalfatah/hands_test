@@ -29,28 +29,23 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Set background color to white
-      resizeToAvoidBottomInset:
-          false, // Prevent UI from moving when keyboard opens
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-
-            // Centered Logo
             Center(
               child: Image.asset(
                 'assets/images/HandsInWordsLogo.png',
-                width: 320, // Logo size
-                height: 320, // Logo size
+                width: 320,
+                height: 320,
                 fit: BoxFit.contain,
               ),
             ),
-
-            const SizedBox(height: 1), // Reduced space between logo and text
-
+            const SizedBox(height: 1),
             const Text(
               "Welcome Back!",
               textAlign: TextAlign.center,
@@ -60,21 +55,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Color.fromARGB(255, 0, 0, 0),
               ),
             ),
-
             const SizedBox(height: 35),
             _buildInputField("Enter email address", _emailController),
             const SizedBox(height: 15),
             _buildInputField("Enter Password", _passwordController,
                 isPassword: true),
-
-            // Forgot Password aligned EXACTLY under the password field
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
               child: Container(
                 width: 290, // Matches input field width
                 alignment: Alignment.centerLeft, // Aligns text to the left
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () {},
                   child: const Text(
                     'Forgot Password ?',
@@ -87,11 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
             const SizedBox(height: 30),
             _buildLoginButton(),
             const SizedBox(height: 20),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

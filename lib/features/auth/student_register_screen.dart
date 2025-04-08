@@ -1,7 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hands_test/models/student_model.dart';
 
 class StudentRegisterScreen extends StatefulWidget {
   const StudentRegisterScreen({super.key});
@@ -13,12 +16,16 @@ class StudentRegisterScreen extends StatefulWidget {
 class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   // Text controllers
   final _emailController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _universityController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
+    _fullNameController.dispose();
+    _universityController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
     super.dispose();
@@ -43,9 +50,28 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
 
     try {
       if (passwordConfirmed()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
+        );
+
+        final student = Student(
+          id: user.user!.uid,
+          fullName: _fullNameController.text.trim(),
+          email: _emailController.text.trim(),
+          university: _universityController.text.trim(),
+        );
+
+        await FirebaseFirestore.instance
+            .collection("Students")
+            .doc(user.user!.uid)
+            .set(student.toJson());
+
+        Get.snackbar(
+          'Success',
+          'Register Success',
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.green,
         );
 
         // ✅ Navigate to HomeScreen only after successful registration
@@ -115,7 +141,11 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
               ),
               const SizedBox(height: 6),
               // Input Fields
-              buildTextField("Enter your full name", false, null),
+              buildTextField(
+                "Enter your full name",
+                false,
+                _fullNameController,
+              ),
               const SizedBox(height: 15),
               buildTextField("Enter email address", false, _emailController),
               const SizedBox(height: 15),
@@ -124,7 +154,11 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
               buildTextField(
                   "Confirm Password", true, _confirmpasswordController),
               const SizedBox(height: 15),
-              buildTextField("Enter your University", false, null),
+              buildTextField(
+                "Enter your University",
+                false,
+                _universityController,
+              ),
               const SizedBox(height: 18),
 
               // ✅ Fixed Register Button with signUp function

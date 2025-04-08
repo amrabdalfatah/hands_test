@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hands_test/features/student/video_call_screen.dart';
 
-import '../pages/Home_screen_drawer.dart';
-import '../pages/audio_to_text_Screen.dart';
-import '../pages/emergency_session_screen.dart';
-import '../pages/login_screen.dart';
-import '../pages/saved_lectures_screen.dart';
-import '../pages/sign_to_audio_screen.dart';
-import '../pages/student_settings.dart';
-import '../pages/user_profile.dart';
+import 'Home_screen_drawer.dart';
+import 'audio_to_text_Screen.dart';
+import 'emergency_session_screen.dart';
+import '../auth/login_screen.dart';
+import 'saved_lectures_screen.dart';
+import 'sign_to_audio_screen.dart';
+import 'student_settings.dart';
+import 'user_profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -208,6 +209,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     startColor: Colors.redAccent,
                     endColor: Colors.deepOrangeAccent,
                     onTap: () => _navigateTo(context, EmergencySessionScreen()),
+                  ),
+                  GradientCard(
+                    title: "Video Call",
+                    icon: Icons.video_call,
+                    startColor: Colors.blueAccent,
+                    endColor: Colors.blue,
+                    onTap: () => _navigateTo(context, VideoCallScreen()),
                   ),
                 ],
               ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 
-import '../../model/sign_to_audio_model.dart';
+import '../../models/sign_to_audio_model.dart';
 
 class StudentViewModel extends GetxController {
   RxBool action = false.obs;
